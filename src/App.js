@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div className='app'>
       <Header />
-      <Timer min={25} />
+      <Timer />
     </div>
   )
 }
