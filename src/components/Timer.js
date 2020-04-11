@@ -14,6 +14,10 @@ const Container = styled.div`
 
 const Clock = styled.div`
   font-size: 16rem;
+
+  @media screen and (max-width: 640px) {
+    font-size: 8rem;
+  }
 `
 
 const Button = styled.button`

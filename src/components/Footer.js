@@ -3,12 +3,14 @@ import styled from 'styled-components'
 
 const Footer = styled.footer`
   font-size: 1.4rem;
+  margin: 0 auto;
   padding-bottom: 3rem;
+  width: 80%;
 `
 
 export default () => (
   <Footer>
-    from{' '}
+    From{' '}
     <a
       href='https://github.com/wh1zk1d'
       title='Visit me on GitHub'
@@ -16,6 +18,6 @@ export default () => (
       rel='noopener noreferrer'>
       wh1zk1d
     </a>{' '}
-    with love
+    with love ❤️
   </Footer>
 )
