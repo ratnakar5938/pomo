@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import RandomEmoji from './RandomEmoji'
 import useSound from 'use-sound'
 import switchOn from '../sounds/switch-on.mp3'
 import switchOff from '../sounds/switch-off.mp3'
@@ -30,19 +31,18 @@ const Header = ({ darkmode, toggleDarkmode }) => {
   return (
     <header>
       <Container>
-        <h2 style={{ fontSize: '2.4rem' }}>
+        <h1 style={{ fontSize: '2rem' }}>
           <span
             role='img'
-            aria-label='tomato emoji'
+            aria-label='emoji'
             style={{ display: 'inline-block', marginRight: '0.25em' }}>
-            🍅
+            <RandomEmoji />
           </span>{' '}
           pomo
-        </h2>
+        </h1>
         {darkmode ? (
           <i
             className='gg-sun'
-            style={{ cursor: 'pointer' }}
             onClick={() => {
               darkmodeOff()
               playOff()
@@ -50,7 +50,6 @@ const Header = ({ darkmode, toggleDarkmode }) => {
         ) : (
           <i
             className='gg-moon'
-            style={{ cursor: 'pointer' }}
             onClick={() => {
               darkmodeOn()
               playOn()

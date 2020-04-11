@@ -1,12 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
 @import url('./icons/moon.css');
 @import url('./icons/sun.css');
 
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Space Mono'), local('SpaceMono-Regular'),
+    url('./fonts/space-mono/space-mono-v5-latin-regular.woff2') format('woff2'),
+    url('./fonts/space-mono/space-mono-v5-latin-regular.woff') format('woff');
+}
+
 :root {
   --darkmode-text: #f4f4f4;
-  --darkmode-bg: #1a2a3a;
+  --darkmode-bg: #101c28;
 
-  --lightmode-text: #1a2a3a;
-  --lightmode-bg: #f4f4f4;
+  --lightmode-text: #313f4e;
+  --lightmode-bg: #edf2f7;
+
+  --accent: #4e4edf;
 }
 
 * {
@@ -26,7 +38,7 @@ body {
 .app {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -43,4 +55,19 @@ body {
 .app.theme-light {
   background-color: var(--lightmode-bg);
   color: var(--lightmode-text);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+header i {
+  cursor: pointer;
 }
