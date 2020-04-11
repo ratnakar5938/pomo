@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const Clock = styled.div`
-  display: grid;
-  place-items: center;
-  font-size: 12em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 16em;
   text-align: center;
 `
 
@@ -31,17 +33,22 @@ const Timer = ({ min = 25 }) => {
     }
   }, [minutes, running, seconds])
 
+  function start() {
+    setMinutes(minutes - 1)
+    setSeconds(59)
+    setRunning(true)
+  }
+
+  function reset() {
+    setMinutes(min)
+    setSeconds(0)
+    setRunning(false)
+  }
+
   return (
     <Clock>
       {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-      <button
-        onClick={() => {
-          setMinutes(minutes - 1)
-          setSeconds(59)
-          setRunning(true)
-        }}>
-        Start
-      </button>
+      {running ? <button onClick={reset}>Reset</button> : <button onClick={start}>Start</button>}
     </Clock>
   )
 }
