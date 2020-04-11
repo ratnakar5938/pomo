@@ -6,7 +6,8 @@ const Clock = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-size: 16em;
+
+  font-size: 28rem;
   text-align: center;
 `
 

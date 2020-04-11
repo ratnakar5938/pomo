@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import useSound from 'use-sound'
+import switchOn from '../sounds/switch-on.mp3'
+import switchOff from '../sounds/switch-off.mp3'
 
 const Container = styled.div`
   display: flex;
@@ -21,10 +24,13 @@ const Header = ({ darkmode, toggleDarkmode }) => {
     toggleDarkmode(false)
   }
 
+  const [playOn] = useSound(switchOn, { volume: 0.5 })
+  const [playOff] = useSound(switchOff, { volume: 0.5 })
+
   return (
     <header>
       <Container>
-        <h2>
+        <h2 style={{ fontSize: '2.4rem' }}>
           <span
             role='img'
             aria-label='tomato emoji'
@@ -34,9 +40,21 @@ const Header = ({ darkmode, toggleDarkmode }) => {
           pomo
         </h2>
         {darkmode ? (
-          <i className='gg-sun' style={{ cursor: 'pointer' }} onClick={darkmodeOff}></i>
+          <i
+            className='gg-sun'
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              darkmodeOff()
+              playOff()
+            }}></i>
         ) : (
-          <i className='gg-moon' style={{ cursor: 'pointer' }} onClick={darkmodeOn}></i>
+          <i
+            className='gg-moon'
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              darkmodeOn()
+              playOn()
+            }}></i>
         )}
       </Container>
     </header>
