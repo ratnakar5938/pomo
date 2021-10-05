@@ -28,11 +28,6 @@ const Header = ({ darkmode, toggleDarkmode }) => {
   const [playOn] = useSound(switchOn, { volume: 0.5 })
   const [playOff] = useSound(switchOff, { volume: 0.5 })
 
-
-  
-
-  
-
   return (
     <header>
       <Container>

@@ -53,9 +53,6 @@ const Timer = ({ min = 25 }) => {
     counter: 0,
   })
 
-
-
-
   useEffect(() => {
     if (state.isRunning) {
       if (state.minutes === 0 && state.seconds === 0) {
