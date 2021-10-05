@@ -56,7 +56,7 @@ const Timer = ({ min = 25 }) => {
   useEffect(() => {
     if (state.isRunning) {
       if (state.minutes === 0 && state.seconds === 0) {
-        setState({ ...state, isFinished: true, isRunning: false, counter: state.counter + 1 })
+        setState({ ...state, isFinished: true, isRunning: false, counter: state.counter + 1, minutes:min, seconds:0 })
       } else {
         const timer = setInterval(() => {
           if (state.seconds === 0) {
@@ -83,8 +83,8 @@ const Timer = ({ min = 25 }) => {
   const start = () => {
     setState({
       ...state,
-      minutes: state.minutes - 1,
-      seconds: 59,
+      minutes: (state.seconds === 0 ? state.minutes - 1 : state.minutes),
+      seconds: (state.seconds === 0 ? 59 : state.seconds - 1),
       isRunning: true,
       isFinished: false,
     })
@@ -92,6 +92,27 @@ const Timer = ({ min = 25 }) => {
 
   const reset = () => {
     setState({ ...state, minutes: min, seconds: 0, isRunning: false })
+  }
+
+  const incMinutes = () => {
+    setState({...state, minutes: state.minutes+1});
+  }
+
+  const decMinutes = () => {
+    if(state.minutes === 0) return;
+    setState({...state, minutes: state.minutes-1});
+  }
+
+  const incSeconds = () => {
+    if(state.seconds === 59) setState({...state, minutes: state.minutes+1, seconds: 0});
+    else setState({...state, seconds: state.seconds+1});
+  }
+
+  const decSeconds = () => {
+    if(state.seconds === 0){
+      if(state.minutes === 0) return;
+      setState({...state, minutes: state.minutes-1, seconds: 59});
+    } else setState({...state, seconds: state.seconds-1});
   }
 
   const Finished = () => (
@@ -107,11 +128,15 @@ const Timer = ({ min = 25 }) => {
   return (
     <Container>
       <Clock>
+        {!state.isFinished ? (<Button disabled={state.isRunning} onClick={incMinutes}>^</Button> ) : (null)}
+        {!state.isFinished ? (<Button disabled={state.isRunning} onClick={decMinutes}>X</Button> ) : (null)}
         {state.isFinished ? (
           <Finished>Finished</Finished>
         ) : (
           `${format(state.minutes)}:${format(state.seconds)}`
         )}
+        {!state.isFinished ? (<Button disabled={state.isRunning} onClick={incSeconds}>^</Button> ) : (null)}
+        {!state.isFinished ? (<Button disabled={state.isRunning} onClick={decSeconds}>X</Button> ) : (null)}
       </Clock>
       {state.isRunning ? (
         <Button
