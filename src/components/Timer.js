@@ -56,7 +56,7 @@ const Timer = ({ min = 25 }) => {
   useEffect(() => {
     if (state.isRunning) {
       if (state.minutes === 0 && state.seconds === 0) {
-        setState({ ...state, isFinished: true, isRunning: false, counter: state.counter + 1, minutes:min, seconds:0 })
+        setState({ ...state, isFinished: true, isRunning: false, counter: state.counter + 1 })
       } else {
         const timer = setInterval(() => {
           if (state.seconds === 0) {
@@ -91,7 +91,7 @@ const Timer = ({ min = 25 }) => {
   }
 
   const reset = () => {
-    setState({ ...state, minutes: min, seconds: 0, isRunning: false })
+    setState({ ...state, minutes: min, seconds: 0, isRunning: false, isFinished:false })
   }
 
   const incMinutes = () => {
@@ -100,6 +100,7 @@ const Timer = ({ min = 25 }) => {
 
   const decMinutes = () => {
     if(state.minutes === 0) return;
+    if(state.seconds === 0 && state.minutes === 1) return;
     setState({...state, minutes: state.minutes-1});
   }
 
@@ -109,6 +110,7 @@ const Timer = ({ min = 25 }) => {
   }
 
   const decSeconds = () => {
+    if(state.seconds === 1 && state.minutes === 0) return;
     if(state.seconds === 0){
       if(state.minutes === 0) return;
       setState({...state, minutes: state.minutes-1, seconds: 59});
@@ -149,7 +151,8 @@ const Timer = ({ min = 25 }) => {
       ) : (
         <Button
           onClick={() => {
-            start()
+            if(state.isFinished) reset();
+            else start();
             playClick()
           }}>
           {state.isFinished ? 'Next round' : 'Start'}
