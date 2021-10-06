@@ -37,7 +37,7 @@ const Button = styled.button`
   text-transform: uppercase;
 `
 
-const Notification = styled.h2`
+const NotificationText = styled.h2`
   font-size: 2.6rem;
   margin-bottom: 2rem;
 `
@@ -73,10 +73,27 @@ const Timer = ({ min = 25 }) => {
   useEffect(() => {
     if (state.isFinished) {
       document.title = 'Finished 🎉'
+      if (Notification.permission === "granted") {
+        new Notification("Pomodoro complete, time for a break!");
+      }
     } else {
       document.title = `${format(state.minutes)}:${format(state.seconds)}`
     }
   }, [state.isFinished, state.minutes, state.seconds])
+
+  useEffect(() => {
+    requestPermission()
+  }, [])
+
+  function requestPermission() {
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    }
+  
+    else if (Notification.permission !== "denied") {
+      Notification.requestPermission()
+    }
+  }
 
   const [playClick] = useSound(click, { volume: 0.5 })
 
@@ -95,13 +112,13 @@ const Timer = ({ min = 25 }) => {
   }
 
   const Finished = () => (
-    <Notification>
+    <NotificationText>
       You did it! Now enjoy your {state.counter % 4 === 0 && state.counter !== 0 ? '30' : '5'}min
       break{' '}
       <span role='img' aria-label='coffee emoji'>
         ☕️
       </span>
-    </Notification>
+    </NotificationText>
   )
 
   return (
