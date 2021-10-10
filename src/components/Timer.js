@@ -14,9 +14,12 @@ const Container = styled.div`
 
 const Clock = styled.div`
   font-size: 16rem;
+  display: flex;
+  flex-direction: row;
 
   @media screen and (max-width: 640px) {
     font-size: 8rem;
+    flex-direction: column;
   }
 `
 
@@ -32,12 +35,14 @@ const Button = styled.button`
   font-family: 'Space Mono', monospace;
   font-size: 1.6rem;
   letter-spacing: 1px;
-  margin: 4rem 0;
+  margin: 2rem;
   padding: 1.2rem 1.7rem;
   text-transform: uppercase;
 `
 const ButtonContainer = styled.div`
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `
 
 const NotificationText = styled.h2`
@@ -154,18 +159,22 @@ const Timer = ({ min = 25 }) => {
   return (
     <Container>
       <Clock>
-        {!state.isFinished ? (<Button disabled={state.isRunning} onClick={incMinutes}>^</Button> ) : (null)}
-        {!state.isFinished ? (<Button disabled={state.isRunning} onClick={decMinutes}>X</Button> ) : (null)}
+        <ButtonContainer>
+          {!state.isFinished ? (<Button disabled={state.isRunning} onClick={incMinutes}>+1 min</Button> ) : (null)}
+          {!state.isFinished ? (<Button disabled={state.isRunning} onClick={decMinutes}>-1 min</Button> ) : (null)}
+        </ButtonContainer>
         {state.isFinished ? (
           <Finished>Finished</Finished>
         ) : (
           `${format(state.minutes)}:${format(state.seconds)}`
         )}
-        {!state.isFinished ? (<Button disabled={state.isRunning} onClick={incSeconds}>^</Button> ) : (null)}
-        {!state.isFinished ? (<Button disabled={state.isRunning} onClick={decSeconds}>X</Button> ) : (null)}
+        <ButtonContainer>
+          {!state.isFinished ? (<Button disabled={state.isRunning} onClick={incSeconds}>+1 sec</Button> ) : (null)}
+          {!state.isFinished ? (<Button disabled={state.isRunning} onClick={decSeconds}>-1 sec</Button> ) : (null)}
+        </ButtonContainer>
       </Clock>
       {state.isRunning ? (
-          <ButtonContainer>
+        <ButtonContainer>
           <Button
             onClick={() => {
               reset()
