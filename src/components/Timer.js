@@ -17,6 +17,10 @@ const Clock = styled.div`
   display: flex;
   flex-direction: row;
 
+  @media screen and (max-width: 915px) {
+    font-size: 8rem;
+  }
+
   @media screen and (max-width: 640px) {
     font-size: 8rem;
     flex-direction: column;
@@ -38,11 +42,20 @@ const Button = styled.button`
   margin: 2rem;
   padding: 1.2rem 1.7rem;
   text-transform: uppercase;
+
+  @media screen and (max-width: 915px) {
+    margin: 0.5rem;
+  }
+
 `
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  @media screen and (max-width: 915px) {
+    margin: 0.5rem;
+  }  
 `
 
 const NotificationText = styled.h2`
